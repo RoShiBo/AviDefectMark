@@ -1,0 +1,76 @@
+﻿<Window x:Class="AviDefMark.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AviDefMark"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen" WindowState="Maximized" x:Name="Main">
+
+    
+        <Grid Background="WhiteSmoke" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="10*" />
+            
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" BorderThickness="2">
+            <Grid Grid.Column="0">
+            <StackPanel>
+
+                <Button Height="25" Content="Load Image" Click="BtnLoadImage_Click" x:Name="btnLoadImage" Background="DarkKhaki"/>
+                <Separator></Separator>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="   Panel: " Background="AliceBlue"/>
+                    <Separator></Separator>
+                    <TextBlock Height="25" Text="{Binding ElementName=Tpanel, Path=Panel, UpdateSourceTrigger=PropertyChanged}" Background="AliceBlue"/>
+                </StackPanel>
+          
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="   Stent: " Background="Bisque"/>
+                    <Separator></Separator>
+                    <TextBlock Height="25" Text="{Binding ElementName=Tpanel, Path=Stent, UpdateSourceTrigger=PropertyChanged}" Background="Bisque"/>
+                </StackPanel>
+               
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="   # Records: " Background="LightGreen"/>
+                    <Separator></Separator>
+                    <TextBlock Height="25" Text="{Binding ElementName=Tpanel, Path=NumOfRecords, UpdateSourceTrigger=PropertyChanged}" Background="LightGreen"/>
+                </StackPanel>
+
+                <Separator></Separator>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="   # Saved: " Background="LightBlue"/>
+                    <Separator></Separator>
+                    <TextBlock Height="25" Text="{Binding ElementName=Tpanel, Path=NumOfSavedRecords, UpdateSourceTrigger=PropertyChanged}" Background="LightBlue"/>
+                </StackPanel>
+
+                <Button Height="25" Content="Save Classification" Click="SaveClassifications" x:Name="btnSaveClassification" IsEnabled="false" Background="Honeydew"/>
+                <Separator></Separator>
+                <Button Height="25" Content="Clear All Classifications" Click="ClearClassifications" x:Name="btnClearClassification" Background="DarkSalmon"/>
+            </StackPanel>
+        </Grid>
+            </Border>
+            
+        <local:ZoomBorder x:Name="border" 
+                              Background="AliceBlue"
+                              ClipToBounds="True"
+                              PanToPoint="{Binding PanToPoint,
+                                                   Mode=TwoWay,
+                                                   UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" >
+          
+            
+            <local:TransformPanel x:Name="Tpanel" >
+          
+               
+                <Image Source="{Binding DisplayImage, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TransformPanel}}"
+           RenderTransform="{Binding Transform, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TransformPanel}}"/>
+              
+
+
+            </local:TransformPanel>
+        </local:ZoomBorder>
+        
+    </Grid>
+</Window>
